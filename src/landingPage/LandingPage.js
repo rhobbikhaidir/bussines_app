@@ -5,33 +5,46 @@ import { getAllFood } from '../store/reducer';
 import Loading from '../Loading/Loading';
 import FoodItems from './FoodItems';
 import Select from 'react-select';
+import { useState } from 'react';
+import Pagination from './Pagination';
 
 const LandingPage = () => {
+  const [activePage, setActivePage] = useState(1);
+  const { loader, bussinesItems, totalCount } = useSelector((state) => state);
+  const [limit, setLimit] = useState(5);
+
   const categories = [
     { title: 'Sandwich' },
     { title: 'Breakfast & Brunch' },
     { title: 'Mexican' },
     { title: 'Chinese' },
+    { title: 'Pizza' },
   ];
 
   const valueSelect = [
-    { value: '5', label: '5' },
-    { value: '10', label: '10' },
-    { value: 'All', label: 'All' },
+    { value: 5, label: '5' },
+    { value: 10, label: '10' },
+    { value: totalCount, label: 'All' },
   ];
 
-  const { loader, bussinesItems } = useSelector((state) => state);
-  console.log(loader, bussinesItems, 'ini loader');
-  // const [page, setPage] = useState(1)
   const dispatch = useDispatch();
 
-  const getAllFoodBussines = (page, price = '', categories = '') => {
-    dispatch(getAllFood({ limit: 4, page: page, price, categories }));
+  const getAllFoodBussines = (price = '', categories = '', term = '') => {
+    dispatch(
+      getAllFood({ limit: limit, page: activePage, price, categories, term })
+    );
   };
 
   useEffect(() => {
-    getAllFoodBussines(1);
-  }, [dispatch]);
+    getAllFoodBussines();
+  }, [dispatch, limit, activePage]);
+
+  let totalPost = totalCount / limit;
+
+  console.log(totalPost, 'total cuy');
+  const paginate = (pageNumber) => setActivePage(pageNumber);
+  const paginateFront = () => setActivePage(activePage + 1);
+  const paginateBack = () => setActivePage(activePage - 1);
 
   return (
     <>
@@ -39,7 +52,7 @@ const LandingPage = () => {
         <Navbar />
         {/* wrapper jumbo */}
         <div className='flex h-full'>
-          <div className='w-[250px] h-[80rem] bg-gray-900 px-4 py-4'>
+          <div className='w-[250px] h-[80rem] bg-black px-4 py-4'>
             <h1 className='text-base font-semibold text-white text-left uppercase mb-10'>
               Filters
             </h1>
@@ -90,7 +103,12 @@ const LandingPage = () => {
           {/* wrapper foodItem */}
           <div className='w-full flex justify-center items-start bg-[#F1F1F1]'>
             <div className='flex flex-col mt-4'>
-              <Select options={valueSelect} className='w-[100px]' />
+              <Select
+                options={valueSelect}
+                className='w-[100px]'
+                onChange={(e) => setLimit(e.value)}
+                defaultValue={valueSelect[0]}
+              />
               {bussinesItems?.map((item, index) => {
                 return (
                   <FoodItems
@@ -103,10 +121,23 @@ const LandingPage = () => {
                   />
                 );
               })}
+              <div className='text-center py-5'>
+                <Pagination
+                  postsPerPage={limit}
+                  totalPosts={totalPost}
+                  totalCount={totalCount}
+                  paginate={paginate}
+                  currentPage={activePage}
+                  paginateBack={paginateBack}
+                  paginateFront={paginateFront}
+                />
+              </div>
             </div>
           </div>
         </div>
         {loader && <Loading />}
+
+        <div></div>
       </div>
     </>
   );

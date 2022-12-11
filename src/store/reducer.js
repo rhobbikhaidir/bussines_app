@@ -10,9 +10,14 @@ export const getAllFood = createAsyncThunk(
         params.limit,
         params.page,
         params.categories,
-        params.price
+        params.price,
+        params.term
       );
       if (response.status) {
+        dispatch(
+          setChangeVal({ key: "totalCount", value: response.data.total })
+        );
+
         dispatch(setLoader(false));
       }
       console.log(response.status);
@@ -27,6 +32,7 @@ export const getAllFood = createAsyncThunk(
 const initialState = {
   bussinesItems: [],
   loader: false,
+  totalCount: 0,
 };
 
 const bussinesSlicer = createSlice({

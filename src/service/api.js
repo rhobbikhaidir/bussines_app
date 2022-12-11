@@ -5,7 +5,7 @@ const api = axios.create({
 });
 
 const service = {
-  getAllFood: async (limit = 5, page = 1, categories, price) => {
+  getAllFood: async (limit = 5, page = 1, categories, price, term) => {
     try {
       const response = await api.get("/search", {
         params: {
@@ -13,6 +13,7 @@ const service = {
           page,
           categories,
           price,
+          term,
         },
       });
 
