@@ -28,8 +28,17 @@ import food3 from '../assets/img/img-popular-3.jpg';
 import food4 from '../assets/img/img-popular-4.jpg';
 import arrowRight from '../assets/icon/ic-arrow-right.svg';
 import { CardFoodPrimary, CardFoodSecondary, Card, CardCategory } from '../components/card';
+import { useParams } from 'react-router-dom';
+
+// https://source.unsplash.com/random/?pattern&{dinamis}
+// image random
 
 const DetailPage = () => {
+
+  const param = useParams()
+
+  console.log(param)
+
   return (
     <>
     <Navbar />

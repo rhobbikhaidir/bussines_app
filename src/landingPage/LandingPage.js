@@ -1,17 +1,25 @@
 import React, { useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllFood } from "../store/reducer";
+import { getAllFood, getDetailFood } from "../store/reducer";
 import Loading from "../Loading/Loading";
 import FoodItems from "./FoodItems";
 import Select from "react-select";
 import { useState } from "react";
 import Pagination from "./Pagination";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
+  const navigate = useNavigate()
   const [activePage, setActivePage] = useState(1);
   const { loader, bussinesItems, totalCount } = useSelector((state) => state);
   const [limit, setLimit] = useState(5);
+  const [params, setParams] = useState({
+    price: "",
+    categories: "",
+    term: "",
+  });
+
 
   const categories = [
     { title: "Sandwich" },
@@ -19,7 +27,6 @@ const LandingPage = () => {
     { title: "Mexican" },
     { title: "Chinese" },
     { title: "Pizza" },
-
   ];
 
   const valueSelect = [
@@ -30,28 +37,51 @@ const LandingPage = () => {
 
   const dispatch = useDispatch();
 
-  const getAllFoodBussines = (price = "", categories = "", term= "") => {
-    dispatch(getAllFood({ limit: limit, page: activePage, price, categories, term }));
+  const getAllFoodBussines = (price, categori, term) => {
+    dispatch(
+      getAllFood({
+        limit: limit,
+        page: activePage,
+        price: price,
+        categories: categori,
+        term: term,
+      })
+    );
   };
 
   useEffect(() => {
     getAllFoodBussines();
   }, [dispatch, limit, activePage]);
 
+  let totalPost = totalCount / limit;
 
-
-  let totalPost =  totalCount / limit ;
-
-
-  console.log(totalPost, 'total cuy')
   const paginate = (pageNumber) => setActivePage(pageNumber);
   const paginateFront = () => setActivePage(activePage + 1);
   const paginateBack = () => setActivePage(activePage - 1);
 
+  const searchFoodHandler = (e) => {
+    e.preventDefault();
+    getAllFoodBussines(params.price, params.categories, params.term);
+  };
+
+  const handleDetail = (e) => {
+    navigate(`/detail/${e}`)
+    dispatch(getDetailFood({id: e}))
+  }
+
+
   return (
     <>
       <div>
-        <Navbar />
+        <Navbar
+          valueFood={params.term}
+          onChangeFood={(e) =>
+            setParams((prevState) => {
+              return { ...prevState, term: e.target.value };
+            })
+          }
+          onSubmit={searchFoodHandler}
+        />
         {/* wrapper jumbo */}
         <div className="flex h-full">
           <div className="w-[250px] h-[80rem] bg-black px-4 py-4">
@@ -59,24 +89,24 @@ const LandingPage = () => {
               Filters
             </h1>
             {/* button price */}
-            <div className='flex justify-center items-center mt-3 mb-6'>
-              <button className='bg-blue-600 px-4 py-2  rounded-l-full'>
-                <span className='text-xs font-semibold text-center text-white'>
+            <div className="flex justify-center items-center mt-3 mb-6">
+              <button className="bg-blue-600 px-4 py-2  rounded-l-full">
+                <span className="text-xs font-semibold text-center text-white">
                   $
                 </span>
               </button>
-              <button className='bg-blue-600 px-4 py-2 '>
-                <span className='text-xs font-semibold text-center text-white'>
+              <button className="bg-blue-600 px-4 py-2 ">
+                <span className="text-xs font-semibold text-center text-white">
                   $$
                 </span>
               </button>
-              <button className='bg-blue-600 px-4 py-2'>
-                <span className='text-xs font-semibold text-center text-white'>
+              <button className="bg-blue-600 px-4 py-2">
+                <span className="text-xs font-semibold text-center text-white">
                   $$$
                 </span>
               </button>
-              <button className='bg-blue-600 px-4 py-2 rounded-r-full '>
-                <span className='text-xs font-semibold text-center text-white'>
+              <button className="bg-blue-600 px-4 py-2 rounded-r-full ">
+                <span className="text-xs font-semibold text-center text-white">
                   $$$$
                 </span>
               </button>
@@ -105,30 +135,46 @@ const LandingPage = () => {
           {/* wrapper foodItem */}
           <div className="w-full flex justify-center items-start bg-[#F1F1F1]">
             <div className="flex flex-col mt-4">
-              <Select options={valueSelect} className="w-[100px]" onChange={(e) => setLimit(e.value)}  defaultValue={valueSelect[0]} />
-              {bussinesItems?.map((item, index) => {
-                return (
-                  <FoodItems
-                    key={`${index}-${item.id}`}
-                    title={item.name}
-                    categories={item.categories}
-                    isClosed={item.is_closed}
-                    desc={`${item.alias} - ${item.transactions}`}
-                    location={item.location?.display_address}
+              {bussinesItems.length ? (
+                <>
+                  <Select
+                    options={valueSelect}
+                    className="w-[100px]"
+                    onChange={(e) => {
+                      setLimit(e.value);
+                      setActivePage(1);
+                    }}
+                    defaultValue={valueSelect[0]}
                   />
-                );
-              })}
-              <div className="text-center py-5">
-                <Pagination
-                  postsPerPage={limit}
-                  totalPosts={totalPost}
-                  totalCount={totalCount}
-                  paginate={paginate}
-                  currentPage={activePage}
-                  paginateBack={paginateBack}
-                  paginateFront={paginateFront}
-                />
-              </div>
+                  {bussinesItems?.map((item, index) => {
+                    return (
+                      <FoodItems
+                        key={`${index}-${item.id}`}
+                        title={item.name}
+                        img={`${item.image_url}${item.review_count}`}
+                        categories={item.categories}
+                        isClosed={item.is_closed}
+                        desc={`${item.alias} - ${item.transactions}`}
+                        location={item.location?.display_address}
+                        onClick={handleDetail.bind(null, item.id)}
+                      />
+                    );
+                  })}
+                  <div className="text-center py-5">
+                    <Pagination
+                      postsPerPage={limit}
+                      totalPosts={totalPost}
+                      totalCount={totalCount}
+                      paginate={paginate}
+                      currentPage={activePage}
+                      paginateBack={paginateBack}
+                      paginateFront={paginateFront}
+                    />
+                  </div>
+                </>
+              ) : (
+                <p>something went wrong</p>
+              )}
             </div>
           </div>
         </div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import Img from '../assets/img/food.jpg';
 
 const FoodItems = (props) => {
   return (
@@ -7,7 +6,7 @@ const FoodItems = (props) => {
       <section className='flex justify-center items-center mt-4'>
         <div className='bg-[#ffffff] w-[800px] h-[250px] px-4 py-4 rounded-md flex justify-center items-center drop-shadow-md'>
           <img
-            src={Img}
+            src={props.img}
             alt='img'
             className='w-[200px] h-[200px] object-cover rounded-sm'
           />
@@ -42,7 +41,7 @@ const FoodItems = (props) => {
                 {/* <p className="text-[#2d2e2f] text-base font-semibold">Takeout</p> */}
               </div>
               <button
-                href='/'
+              onClick={props.onClick}
                 className='px-3 py-2 bg-white rounded-md drop-shadow-md'
               >
                 Order

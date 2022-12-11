@@ -5,7 +5,7 @@ const api = axios.create({
 });
 
 const service = {
-  getAllFood: async (limit = 5, page = 1, categories, price, term) => {
+  getAllFood: async (limit = 5, page = 1, categories = "", price = "", term = "") => {
     try {
       const response = await api.get("/search", {
         params: {
@@ -22,6 +22,15 @@ const service = {
       return err;
     }
   },
+
+  getDetailFood: async (id) => {
+    try {
+      const response = await api.get(`/${id}`);
+      return response.data;
+    } catch (err) {
+      return err;
+    }
+  }
 };
 
 export default service;
