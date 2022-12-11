@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Search from '../assets/icons/search.png';
 
 const Navbar = () => {
   const [item, setItem] = useState('');
@@ -7,8 +8,8 @@ const Navbar = () => {
   return (
     <>
       <section>
-        <div className='bg-[red] w-full h-auto px-4 py-8 flex justify-center items-center'>
-          <div className='w-[800px]'>
+        <div className='bg-[#DC1919] w-full h-auto px-4 py-8 flex justify-center items-center'>
+          <div className='w-[800px] flex justify-end items-center'>
             <form>
               <input
                 type='text'
@@ -17,7 +18,7 @@ const Navbar = () => {
                 value={item}
                 required
                 onChange={(e) => setItem(e.target.value)}
-                className='w-[300px] outline-none py-2 rounded-l-md mr-1'
+                className='w-[300px] outline-none py-2 rounded-l-md border-r-2 border-gray-300 text-center'
               />
               <input
                 type='text'
@@ -25,13 +26,17 @@ const Navbar = () => {
                 name='location'
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className='w-[300px] outline-none py-2'
+                className='w-[300px] outline-none py-2 text-center'
               />
               <button
                 type='submit'
-                className='bg-blue-800 py-2 px-4 text-center rounded-r-md text-white text-base'
+                className='bg-blue-800 px-4 py-3 text-center rounded-r-md text-white text-base'
               >
-                search
+                <img
+                  src={Search}
+                  alt='logo-search'
+                  className='w-[16px] h-[16px] object-contain'
+                />
               </button>
             </form>
           </div>

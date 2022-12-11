@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllFood } from '../store/reducer';
 import Loading from '../Loading/Loading';
 import FoodItems from './FoodItems';
+import Select from 'react-select';
 
 const LandingPage = () => {
   const categories = [
@@ -11,6 +12,12 @@ const LandingPage = () => {
     { title: 'Breakfast & Brunch' },
     { title: 'Mexican' },
     { title: 'Chinese' },
+  ];
+
+  const valueSelect = [
+    { value: '5', label: '5' },
+    { value: '10', label: '10' },
+    { value: 'All', label: 'All' },
   ];
 
   const { loader, bussinesItems } = useSelector((state) => state);
@@ -79,20 +86,24 @@ const LandingPage = () => {
               })}
             </div>
           </div>
+
           {/* wrapper foodItem */}
-          <div className='w-full flex flex-col justify-center items-center bg-gray-400'>
-            {bussinesItems?.map((item, index) => {
-              return (
-                <FoodItems
-                  key={`${index}-${item.id}`}
-                  title={item.name}
-                  categories={item.categories}
-                  isClosed={item.is_closed}
-                  desc={`${item.alias} - ${item.transactions}`}
-                  location={item.location?.display_address}
-                />
-              );
-            })}
+          <div className='w-full flex justify-center items-start bg-gray-400'>
+            <div className='flex flex-col mt-4'>
+              <Select options={valueSelect} className='w-[100px]' />
+              {bussinesItems?.map((item, index) => {
+                return (
+                  <FoodItems
+                    key={`${index}-${item.id}`}
+                    title={item.name}
+                    categories={item.categories}
+                    isClosed={item.is_closed}
+                    desc={`${item.alias} - ${item.transactions}`}
+                    location={item.location?.display_address}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
         {loader && <Loading />}
