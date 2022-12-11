@@ -1,5 +1,6 @@
 import React from "react";
 import Search from "../assets/icons/search.png";
+import logoNav from "../assets/icons/logo-nav.png";
 
 const Navbar = ({
   onChangeFood,
@@ -11,9 +12,14 @@ const Navbar = ({
   return (
     <>
       <section>
-        <div className="bg-[#DC1919] w-full h-auto px-4 py-8 flex justify-center items-center">
+        <div className="bg-[#FFFF] w-full h-auto px-4 py-6 flex justify-center items-center">
           <div className="w-[800px] flex justify-end items-center">
-            <form onSubmit={onSubmit}>
+            <img
+              src={logoNav}
+              alt="logo-nav"
+              className="w-[45px] h-[45px] object-cover mr-5"
+            />
+            <form className="flex items-center" onSubmit={onSubmit}>
               <input
                 type="text"
                 placeholder="Searching something ..."
@@ -29,7 +35,7 @@ const Navbar = ({
                 name="location"
                 value={valueLocation}
                 onChange={onChangeLocation}
-                className="w-[300px] outline-none py-2 text-center"
+                className="w-[300px] outline-none py-2 text-center shadow-sm bg-gray-200"
               />
               <button
                 type="submit"

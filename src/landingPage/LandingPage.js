@@ -59,24 +59,24 @@ const LandingPage = () => {
               Filters
             </h1>
             {/* button price */}
-            <div className="flex justify-center items-center mt-3 mb-6">
-              <button className="bg-blue-600 px-4 py-2 border-white border-r-2 rounded-l-full">
-                <span className="text-lg font-semibold text-center text-white">
+            <div className='flex justify-center items-center mt-3 mb-6'>
+              <button className='bg-blue-600 px-4 py-2  rounded-l-full'>
+                <span className='text-xs font-semibold text-center text-white'>
                   $
                 </span>
               </button>
-              <button className="bg-blue-600 px-4 py-2 border-white border-r-2">
-                <span className="text-lg font-semibold text-center text-white">
+              <button className='bg-blue-600 px-4 py-2 '>
+                <span className='text-xs font-semibold text-center text-white'>
                   $$
                 </span>
               </button>
-              <button className="bg-blue-600 px-4 py-2">
-                <span className="text-lg font-semibold text-center text-white">
+              <button className='bg-blue-600 px-4 py-2'>
+                <span className='text-xs font-semibold text-center text-white'>
                   $$$
                 </span>
               </button>
-              <button className="bg-blue-600 px-4 py-2 rounded-r-full border-white border-l-2">
-                <span className="text-lg font-semibold text-center text-white">
+              <button className='bg-blue-600 px-4 py-2 rounded-r-full '>
+                <span className='text-xs font-semibold text-center text-white'>
                   $$$$
                 </span>
               </button>
@@ -103,7 +103,7 @@ const LandingPage = () => {
           </div>
 
           {/* wrapper foodItem */}
-          <div className="w-full flex justify-center items-start bg-gray-400">
+          <div className="w-full flex justify-center items-start bg-[#F1F1F1]">
             <div className="flex flex-col mt-4">
               <Select options={valueSelect} className="w-[100px]" onChange={(e) => setLimit(e.value)}  defaultValue={valueSelect[0]} />
               {bussinesItems?.map((item, index) => {
