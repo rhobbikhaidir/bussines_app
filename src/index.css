@@ -12,6 +12,11 @@ code {
     monospace;
 }
 
+.custom::-webkit-scrollbar{
+    width: 0;
+}
+
+
 
 @tailwind base;
 @tailwind components;
