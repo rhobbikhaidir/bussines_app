@@ -1,8 +1,8 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import service from "../service/api";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import service from '../service/api';
 
 export const getAllFood = createAsyncThunk(
-  "/getAllFood",
+  '/getAllFood',
   async (params, { rejectWithValue, dispatch }) => {
     try {
       dispatch(setLoader(true));
@@ -12,9 +12,8 @@ export const getAllFood = createAsyncThunk(
         params.categories,
         params.price
       );
-      if(response.status) {
-      dispatch(setLoader(false));
-
+      if (response.status) {
+        dispatch(setLoader(false));
       }
       console.log(response.status);
       return response;
@@ -31,7 +30,7 @@ const initialState = {
 };
 
 const bussinesSlicer = createSlice({
-  name: "sliceUsers",
+  name: 'sliceUsers',
   initialState: { ...initialState },
   reducers: {
     setChangeVal: (state, action) => {
@@ -42,11 +41,11 @@ const bussinesSlicer = createSlice({
     },
   },
   extraReducers: (builder) => {
-      builder.addCase(getAllFood.fulfilled, (state, action) => {
-        // console.log('data balikan dari api :', action.payload);
-        
-        state.bussinesItems = action.payload.data.businesses;
-      });
+    builder.addCase(getAllFood.fulfilled, (state, action) => {
+      // console.log('data balikan dari api :', action.payload);
+
+      state.bussinesItems = action.payload.data.businesses;
+    });
     //   builder.addCase(findUsers.fulfilled, (state, action) => {
     //     state.findUser = action.payload;
     //   });
