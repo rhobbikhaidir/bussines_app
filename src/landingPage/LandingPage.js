@@ -39,7 +39,7 @@ const LandingPage = () => {
         <Navbar />
         {/* wrapper jumbo */}
         <div className='flex h-full'>
-          <div className='w-[250px] h-[80rem] bg-black px-4 py-4'>
+          <div className='w-[250px] h-[80rem] bg-gray-900 px-4 py-4'>
             <h1 className='text-base font-semibold text-white text-left uppercase mb-10'>
               Filters
             </h1>
