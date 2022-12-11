@@ -12,7 +12,7 @@ const Navbar = ({
   return (
     <>
       <section>
-        <div className='bg-[#FFFF] w-full h-auto px-4 py-6 flex justify-center items-center'>
+        <div className='bg-[#FFFF] w-full h-auto px-4 py-6 flex flex-col justify-center items-center'>
           <div className='w-[800px] flex justify-end items-center'>
             <img
               src={logoNav}

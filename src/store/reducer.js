@@ -15,7 +15,7 @@ export const getAllFood = createAsyncThunk(
       );
       if (response.status) {
         dispatch(
-          setChangeVal({ key: "totalCount", value: response.data.total })
+          setChangeVal({ key: 'totalCount', value: response.data.total })
         );
 
         dispatch(setLoader(false));
@@ -29,10 +29,33 @@ export const getAllFood = createAsyncThunk(
   }
 );
 
+export const getDetailFood = createAsyncThunk(
+  '/getDetailFood',
+  async (params, { rejectWithValue, dispatch }) => {
+    try {
+      // dispatch(setLoader(true));
+      const response = await service.getDetailFood(params.id);
+      // if (response.status) {
+      //   dispatch(
+      //     setChangeVal({ key: "totalCount", value: response.data.total })
+      //   );
+
+      //   dispatch(setLoader(false));
+      // }
+      // console.log(response.status);
+      return response;
+    } catch (error) {
+      // dispatch(setLoader(false));
+      rejectWithValue(error);
+    }
+  }
+);
+
 const initialState = {
   bussinesItems: [],
   loader: false,
   totalCount: 0,
+  detailItems: {},
 };
 
 const bussinesSlicer = createSlice({
@@ -48,16 +71,11 @@ const bussinesSlicer = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getAllFood.fulfilled, (state, action) => {
-      // console.log('data balikan dari api :', action.payload);
-
       state.bussinesItems = action.payload.data.businesses;
     });
-    //   builder.addCase(findUsers.fulfilled, (state, action) => {
-    //     state.findUser = action.payload;
-    //   });
-    //   builder.addCase(getUserRepo.fulfilled, (state, action) => {
-    //     state.repoUser = action.payload;
-    //   });
+    builder.addCase(getDetailFood.fulfilled, (state, action) => {
+      state.detailItems = action.payload.data;
+    });
   },
 });
 export const { setChangeVal, setLoader } = bussinesSlicer.actions;
