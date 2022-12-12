@@ -5,7 +5,7 @@ const api = axios.create({
 });
 
 const service = {
-  getAllFood: async (limit = 5, page = 1, categories = "", price = "", term = "") => {
+  getAllBussiness: async (limit = 5, page = 1, categories = "", price = "", term = "") => {
     try {
       const response = await api.get("/search", {
         params: {
@@ -23,7 +23,7 @@ const service = {
     }
   },
 
-  getDetailFood: async (id) => {
+  getDetailBussiness: async (id) => {
     try {
       const response = await api.get(`/${id}`);
       return response.data;
