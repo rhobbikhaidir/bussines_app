@@ -1,12 +1,12 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import service from "../service/api";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import service from '../service/api';
 
-export const getAllFood = createAsyncThunk(
-  "/getAllFood",
+export const getAllBussiness = createAsyncThunk(
+  '/getAllBussiness',
   async (params, { rejectWithValue, dispatch }) => {
     try {
       dispatch(setLoader(true));
-      const response = await service.getAllFood(
+      const response = await service.getAllBussiness(
         params.limit,
         params.page,
         params.categories,
@@ -15,7 +15,7 @@ export const getAllFood = createAsyncThunk(
       );
       if (response.status) {
         dispatch(
-          setChangeVal({ key: "totalCount", value: response.data.total })
+          setChangeVal({ key: 'totalCount', value: response.data.total })
         );
 
         dispatch(setLoader(false));
@@ -29,13 +29,12 @@ export const getAllFood = createAsyncThunk(
   }
 );
 
-export const getDetailFood = createAsyncThunk(
-  "/getDetailFood",
+export const getDetailBussiness = createAsyncThunk(
+  '/getDetailBussiness',
   async (params, { rejectWithValue, dispatch }) => {
     try {
       // dispatch(setLoader(true));
-      const response = await service.getDetailFood(params.id);
-      console.log(response, "aowkoakokwkokwok");
+      const response = await service.getDetailBussiness(params.id);
       // if (response.status) {
       //   dispatch(
       //     setChangeVal({ key: "totalCount", value: response.data.total })
@@ -60,7 +59,7 @@ const initialState = {
 };
 
 const bussinesSlicer = createSlice({
-  name: "sliceUsers",
+  name: 'sliceUsers',
   initialState: { ...initialState },
   reducers: {
     setChangeVal: (state, action) => {
@@ -71,10 +70,10 @@ const bussinesSlicer = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getAllFood.fulfilled, (state, action) => {
+    builder.addCase(getAllBussiness.fulfilled, (state, action) => {
       state.bussinesItems = action.payload.data.businesses;
     });
-    builder.addCase(getDetailFood.fulfilled, (state, action) => {
+    builder.addCase(getDetailBussiness.fulfilled, (state, action) => {
       state.detailItems = action.payload.data;
     });
   },
