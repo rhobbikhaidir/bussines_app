@@ -5,7 +5,7 @@ const api = axios.create({
 });
 
 const service = {
-  getAllBussiness: async (limit = 5, page = 1, categories = "", price = "", term = "") => {
+  getAllBussiness: async (limit = 5, page = 1, latitude = "0", longitude = "0", categories = "", price = "", term = "") => {
     try {
       const response = await api.get("/search", {
         params: {
@@ -14,6 +14,8 @@ const service = {
           categories,
           price,
           term,
+          latitude,
+          longitude 
         },
       });
 
