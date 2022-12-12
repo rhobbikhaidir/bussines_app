@@ -8,7 +8,7 @@ export const Card = ({children, style}) => {
     )
 }
 
-export const CardFoodPrimary = ({img, title, desc}) => {
+export const CardBussinessPrimary = ({img, title, desc}) => {
     return(
         <div className="flex flex-row border border-solid border-gray-300 rounded h-[150px] min-w-[500px] mt-6 mr-4">
             <img src={img} alt="pizza 1" className='h-[150px] rounded-l' />
@@ -22,10 +22,10 @@ export const CardFoodPrimary = ({img, title, desc}) => {
     )
 }
 
-export const CardFoodSecondary = ({img, title, photo, review}) => {
+export const CardBussinessSecondary = ({img, title, photo, review}) => {
     return(
         <div className="flex flex-col mr-8">
-            <img src={img} alt="popular food" className='min-w-[200px] h-[160px] object-cover rounded-md' />
+            <img src={img} alt="popular bussiness" className='min-w-[200px] h-[160px] object-cover rounded-md' />
             <h3 className='font-bold text-xl mt-4'>{title}</h3>
             <div className="flex flex-row items-center">
                 <span className='text-gray-500'>{photo} Photo</span>
