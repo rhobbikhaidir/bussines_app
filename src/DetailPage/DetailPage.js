@@ -48,7 +48,7 @@ const DetailPage = () => {
       <div
         className='bg-white h-[400px] object-cover'
         style={{
-          backgroundImage: `url(${detailItems.image_url + randomImage()})`
+          backgroundImage: `url(${detailItems.image_url + randomImage()})`,
         }}
       >
         <div className='container mx-auto flex flex-col pt-28 px-10'>
@@ -173,37 +173,37 @@ const DetailPage = () => {
               </div>
               <div className='flex flex-row mt-5 overflow-x-scroll overflow-y-hidden custom'>
                 <CardBussinessSecondary
-                  img={detailItems.image_url}
+                  img={detailItems.image_url + randomImage()}
                   title={'Amici'}
                   photo={1}
                   review={3}
                 />
                 <CardBussinessSecondary
-                  img={detailItems.image_url}
+                  img={detailItems.image_url + randomImage()}
                   title={'Chicken Wings'}
                   photo={2}
                   review={2}
                 />
                 <CardBussinessSecondary
-                  img={detailItems.image_url}
+                  img={detailItems.image_url + randomImage()}
                   title={'Sloppy Joe'}
                   photo={1}
                   review={1}
                 />
                 <CardBussinessSecondary
-                  img={detailItems.image_url}
+                  img={detailItems.image_url + randomImage()}
                   title={'Trentino'}
                   photo={1}
                   review={1}
                 />
                 <CardBussinessSecondary
-                  img={detailItems.image_url}
+                  img={detailItems.image_url + randomImage()}
                   title={'Mozza Swiss'}
                   photo={1}
                   review={3}
                 />
                 <CardBussinessSecondary
-                  img={detailItems.image_url}
+                  img={detailItems.image_url + randomImage()}
                   title={'Indian Pizza'}
                   photo={1}
                   review={3}
@@ -275,9 +275,8 @@ const DetailPage = () => {
                 >
                   Get Directions
                 </a>
-                <div className='font-semibold text-xs text-left'>
-                  {/* {detailItems.location.display_address} */}
-                  New York, US
+                <div className='w-[200px] font-semibold text-xs text-left'>
+                  {detailItems.location?.display_address}
                 </div>
               </div>
               <img src={office} alt='office' />

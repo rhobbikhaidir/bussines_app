@@ -12,14 +12,17 @@ const Navbar = ({
   return (
     <>
       <section>
-        <div className='bg-white border-b-2 border-gray-300 w-full h-auto px-4 py-6 flex flex-col justify-center items-center'>
-          <div className='w-[800px] flex justify-start items-center'>
+        <div className='bg-white border-solid border-b-1 border-gray-600 w-full h-auto px-4 py-6 flex flex-col justify-center items-center'>
+          <div className='w-[800px] flex justify-center items-center'>
             <img
               src={LogoNav}
               alt='logo-nav'
               className='w-[45px] h-[45px] object-cover mr-5'
             />
-            <form className='flex items-center' onSubmit={onSubmit}>
+            <form
+              className='flex items-center shadow-md shadow-gray-400 rounded-l-md rounded-r-md'
+              onSubmit={onSubmit}
+            >
               <input
                 type='text'
                 placeholder='Searching something ...'

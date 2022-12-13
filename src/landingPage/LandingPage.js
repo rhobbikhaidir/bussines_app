@@ -82,12 +82,12 @@ const LandingPage = () => {
         />
         {/* wrapper jumbo */}
         <div className='flex h-full'>
-          <div className='w-[250px] h-auto px-4 py-4 border-r-1 bg-white border-r-2 border-gray-300'>
-            <h1 className='text-base font-semibold text-black text-left uppercase mb-10'>
+          <div className='w-[250px] h-auto px-4 py-4 border-r-1 border-solid bg-white border-white'>
+            <h1 className='text-lg font-semibold text-black text-left mb-10'>
               Filters
             </h1>
             {/* button price */}
-            <div className='flex justify-center items-center mt-3 mb-6'>
+            <div className='flex justify-center items-center mt-3 mb-6 border-solid  border-gray-300 pb-8'>
               <button className='bg-white px-4 py-2  rounded-l-full border-2 border-gray-400 hover:bg-blue-600'>
                 <span className='text-xs font-semibold text-center text-black hover:text-white'>
                   $
@@ -110,11 +110,11 @@ const LandingPage = () => {
               </button>
             </div>
             {/* Category*/}
-            <h1 className='text-xl font-semibold uppercase text-black text-left mt-10'>
+            <h1 className='text-lg font-semibold text-black text-left mt-10'>
               Category
             </h1>
             {/* button categories */}
-            <div className='mt-3'>
+            <div className='mt-3 border-b-2 border-gray-300 pb-5'>
               {categories.map((val, i) => {
                 return (
                   <button
@@ -149,7 +149,8 @@ const LandingPage = () => {
                       <BussinessItems
                         key={`${index}-${item.id}`}
                         title={item.name}
-                        img={`${item.image_url}${item.review_count}`}
+                        img={`${item.image_url}`}
+                        review={`${item.review_count}`}
                         categories={item.categories}
                         isClosed={item.is_closed}
                         desc={`${item.alias} - ${item.transactions}`}
